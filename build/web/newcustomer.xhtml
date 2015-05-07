@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="layout.xhtml">
+<f:metadata>
+    <f:viewParam name="id" value="#{customersController.customers.customerNumber}"/>
+<f:viewAction action="#{customersController.findCustomer()}"/>
+</f:metadata>
+        <ui:define name="title">New Customer</ui:define>
+
+
+        <ui:define name="content">
+            <h:panelGrid columns="2">
+
+                <h:form id="bookForm">
+                    <h:outputLabel value="customerName : "/>
+                    <h:inputText value="#{customersController.customers.customerName}"/>
+                    <h:outputLabel value="contactFirstName : "/>
+                    <h:inputText value="#{customersController.customers.contactFirstName}"/>
+                    <h:outputLabel value="contactLastName : "/>
+                    <h:inputText value="#{customersController.customers.contactLastName}"/>
+                    <h:outputLabel value="phone : "/>
+                    <h:inputText value="#{customersController.customers.phone}"/>
+                    <h:outputLabel value="addressLine1 : "/>
+                    <h:inputText value="#{customersController.customers.addressLine1}"/>
+                    <h:outputLabel value="addressLine2 : "/>
+                    <h:inputText value="#{customersController.customers.addressLine2}"/>
+                    <h:outputLabel value=" city: "/>
+                    <h:inputText value="#{customersController.customers.city}"/>
+                    <h:outputLabel value="state : "/>
+                    <h:inputText value="#{customersController.customers.state}"/>
+                    <h:outputLabel value="postalCode : "/>
+                    <h:inputText value="#{customersController.customers.postalCode}"/>
+                    <h:outputLabel value=" salesRepEmployeeNumber: "/>
+                    <h:inputText value="#{customersController.customers.salesRepEmployeeNumber}"/>
+                    <h:outputLabel value="creditLimit : "/>
+                    <h:inputText value="#{customersController.customers.creditLimit}"/>
+
+
+                    <h:commandButton value="Add Customer" action="#{customersController.doCreateCustomers}">
+                        <f:ajax execute="@form" render=":customerlist :errors"/>
+                    </h:commandButton>
+                </h:form>
+
+                <hr/>
+                <h1>List of books</h1>
+
+                <h:dataTable id="customerlist" value="#{customersEJB.findCustomers()}" var="cs" border="1"
+                             <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Customer Namme"/>
+                        </f:facet>
+                        <h:link outcome="viewCustomerDetails.xhtml?id=#{cs.customerNumber}" value="#{cs.customerName}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Credit Limit "/>
+                        </f:facet>
+                        <h:outputText value="#{cs.creditLimit}"/>
+                    </h:column>
+                </h:dataTable>
+
+
+            </h:panelGrid>
+
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>
+
